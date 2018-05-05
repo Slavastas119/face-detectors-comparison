@@ -1,5 +1,14 @@
-from tkinter import Tk, Label, Button, Entry, IntVar, END, W, E, ttk, StringVar
-from tkFileDialog import askopenfilename
+
+import sys
+
+if sys.version_info[0] < 3 and not sys.platform.startswith("win"):
+    from Tkinter import Tk, Label, Button, Entry, IntVar, END, W, E, ttk, StringVar
+else:
+    from tkinter import Tk, Label, Button, Entry, IntVar, END, W, E, ttk, StringVar
+if sys.version_info[0] < 3:
+    from tkFileDialog import askopenfilename
+else:
+    from tkinter.filedialog import askopenfilename
 
 import numpy as np
 import cv2
