@@ -2,7 +2,8 @@
 import sys
 
 if sys.version_info[0] < 3 and not sys.platform.startswith("win"):
-    from Tkinter import Tk, Label, Button, Entry, IntVar, END, W, E, ttk, StringVar
+    from Tkinter import Tk, Label, Button, Entry, IntVar, END, W, E, StringVar
+    import ttk
 else:
     from tkinter import Tk, Label, Button, Entry, IntVar, END, W, E, ttk, StringVar
 if sys.version_info[0] < 3:
