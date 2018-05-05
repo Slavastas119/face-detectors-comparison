@@ -1,5 +1,6 @@
 
 import sys
+import os
 
 if sys.version_info[0] < 3 and not sys.platform.startswith("win"):
     from Tkinter import Tk, Label, Button, Entry, IntVar, END, W, E, StringVar
@@ -25,11 +26,11 @@ class FaceDetector:
         self.label = Label(master, text="Choose and run the face detector you want")
         self.label.grid(row=0, column=0, columnspan=3)
         
-        self.filename = "data\\mcem0_head.mpg"
+        self.filename = os.path.join(os.path.dirname(__file__), "data", "mcem0_head.mpg")
         
         def video_stream_var_to_filename(event):
             if self.video_stream_var.get() == "default video":
-                self.filename = "data\\mcem0_head.mpg"
+                self.filename = os.path.join(os.path.dirname(__file__), "data", "mcem0_head.mpg")
                 self.video_stream_file_path_var.set("")
             if self.video_stream_var.get() == "webcam":
                 self.filename = 0
@@ -219,7 +220,7 @@ class FaceDetector:
                               minSize=(0, 0),
                               sleep_time=2):
         
-        path = 'models\\cascades\\' + model + '.xml'
+        path = os.path.join(os.path.dirname(__file__), "models", "cascades", model + '.xml')
         detector = cv2.CascadeClassifier(path)
         
         results = np.empty([0, 2])
@@ -264,7 +265,8 @@ class FaceDetector:
                           sleep_time=2):
         
         if model == "cnn":
-            detector = dlib.cnn_face_detection_model_v1("models\\dlib\\mmod_human_face_detector.dat")
+            path = os.path.join(os.path.dirname(__file__), "models", "dlib", "mmod_human_face_detector.dat")
+            detector = dlib.cnn_face_detection_model_v1(path)
         else:
             detector = dlib.get_frontal_face_detector()
         
@@ -308,8 +310,8 @@ class FaceDetector:
                            threshold=0.5,
                            sleep_time=2):
         
-        detector = cv2.dnn.readNetFromCaffe("models\\caffe\\deploy.prototxt",
-                                            "models\\caffe\\res10_300x300_ssd_iter_140000.caffemodel")
+        detector = cv2.dnn.readNetFromCaffe(os.path.join(os.path.dirname(__file__), "models", "caffe", "deploy.prototxt"),
+                                            os.path.join(os.path.dirname(__file__), "models", "caffe", "res10_300x300_ssd_iter_140000.caffemodel"))
         
         results = np.empty([0, 2])
         
